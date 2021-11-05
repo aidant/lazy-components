@@ -1,62 +1,136 @@
 export enum Type {
-  ArrayExpression = 'ArrayExpression',
-  AssignmentExpression = 'AssignmentExpression',
-  BinaryExpression = 'BinaryExpression',
-  BlockStatement = 'BlockStatement',
-  BreakStatement = 'BreakStatement',
-  CallExpression = 'CallExpression',
-  CatchClause = 'CatchClause',
-  ConditionalExpression = 'ConditionalExpression',
-  ContinueStatement = 'ContinueStatement',
-  DebuggerStatement = 'DebuggerStatement',
-  Declaration = 'Declaration',
-  DoWhileStatement = 'DoWhileStatement',
-  EmptyStatement = 'EmptyStatement',
-  Expression = 'Expression',
-  ExpressionStatement = 'ExpressionStatement,',
-  ForInStatement = 'ForInStatement',
-  ForStatement = 'ForStatement',
-  Function = 'Function',
-  FunctionBody = 'FunctionBody',
-  FunctionDeclaration = 'FunctionDeclaration',
-  FunctionExpression = 'FunctionExpression',
   Identifier = 'Identifier',
-  IfStatement = 'IfStatement',
-  LabeledStatement = 'LabeledStatement',
   Literal = 'Literal',
-  LogicalExpression = 'LogicalExpression',
-  MemberExpression = 'MemberExpression',
-  NewExpression = 'NewExpression',
-  ObjectExpression = 'ObjectExpression',
-  Pattern = 'Pattern',
   Program = 'Program',
-  Property = 'Property',
+  ExpressionStatement = 'ExpressionStatement',
+  BlockStatement = 'BlockStatement',
+  EmptyStatement = 'EmptyStatement',
+  DebuggerStatement = 'DebuggerStatement',
   ReturnStatement = 'ReturnStatement',
-  SequenceExpression = 'SequenceExpression',
-  Statement = 'Statement',
-  SwitchCase = 'SwitchCase',
+  LabeledStatement = 'LabeledStatement',
+  BreakStatement = 'BreakStatement',
+  ContinueStatement = 'ContinueStatement',
+  IfStatement = 'IfStatement',
   SwitchStatement = 'SwitchStatement',
-  ThisExpression = 'ThisExpression',
+  SwitchCase = 'SwitchCase',
   ThrowStatement = 'ThrowStatement',
   TryStatement = 'TryStatement',
-  UnaryExpression = 'UnaryExpression',
-  UpdateExpression = 'UpdateExpression',
+  CatchClause = 'CatchClause',
+  WhileStatement = 'WhileStatement',
+  DoWhileStatement = 'DoWhileStatement',
+  ForStatement = 'ForStatement',
+  ForInStatement = 'ForInStatement',
+  ForOfStatement = 'ForOfStatement',
+  FunctionDeclaration = 'FunctionDeclaration',
   VariableDeclaration = 'VariableDeclaration',
   VariableDeclarator = 'VariableDeclarator',
-  WhileStatement = 'WhileStatement',
+  ThisExpression = 'ThisExpression',
+  ArrayExpression = 'ArrayExpression',
+  ObjectExpression = 'ObjectExpression',
+  Property = 'Property',
+  FunctionExpression = 'FunctionExpression',
+  UnaryExpression = 'UnaryExpression',
+  UpdateExpression = 'UpdateExpression',
+  BinaryExpression = 'BinaryExpression',
+  AssignmentExpression = 'AssignmentExpression',
+  LogicalExpression = 'LogicalExpression',
+  MemberExpression = 'MemberExpression',
+  ConditionalExpression = 'ConditionalExpression',
+  CallExpression = 'CallExpression',
+  NewExpression = 'NewExpression',
+  SequenceExpression = 'SequenceExpression',
+  Super = 'Super',
+  SpreadElement = 'SpreadElement',
+  ArrowFunctionExpression = 'ArrowFunctionExpression',
+  YieldExpression = 'YieldExpression',
+  TemplateLiteral = 'TemplateLiteral',
+  TaggedTemplateExpression = 'TaggedTemplateExpression',
+  TemplateElement = 'TemplateElement',
+  ObjectPattern = 'ObjectPattern',
+  ArrayPattern = 'ArrayPattern',
+  RestElement = 'RestElement',
+  AssignmentPattern = 'AssignmentPattern',
+  ClassBody = 'ClassBody',
+  MethodDefinition = 'MethodDefinition',
+  ClassDeclaration = 'ClassDeclaration',
+  ClassExpression = 'ClassExpression',
+  MetaProperty = 'MetaProperty',
+  ImportDeclaration = 'ImportDeclaration',
+  ImportSpecifier = 'ImportSpecifier',
+  ImportDefaultSpecifier = 'ImportDefaultSpecifier',
+  ImportNamespaceSpecifier = 'ImportNamespaceSpecifier',
+  ExportNamedDeclaration = 'ExportNamedDeclaration',
+  ExportSpecifier = 'ExportSpecifier',
+  ExportDefaultDeclaration = 'ExportDefaultDeclaration',
+  ExportAllDeclaration = 'ExportAllDeclaration',
+  AwaitExpression = 'AwaitExpression',
+  ChainExpression = 'ChainExpression',
+  ImportExpression = 'ImportExpression',
+  PropertyDefinition = 'PropertyDefinition',
+  PrivateIdentifier = 'PrivateIdentifier',
+  StaticBlock = 'StaticBlock',
+  TypeAnnotation = 'TypeAnnotation',
 }
 
 export interface Node {
   type: Type
 }
 
-export interface Identifier extends Expression, Pattern {
+export type Pattern = Identifier | ObjectPattern | ArrayPattern | RestElement | AssignmentPattern
+
+export type Expression =
+  | Identifier
+  | Literal
+  | ThisExpression
+  | ArrayExpression
+  | ObjectExpression
+  | UnaryExpression
+  | UpdateExpression
+  | BinaryExpression
+  | AssignmentExpression
+  | LogicalExpression
+  | MemberExpression
+  | ConditionalExpression
+  | CallExpression
+  | NewExpression
+  | SequenceExpression
+  | YieldExpression
+  | TemplateLiteral
+  | TaggedTemplateExpression
+  | AwaitExpression
+  | ChainExpression
+  | ImportExpression
+  | FunctionExpression
+  | ArrowFunctionExpression
+  | ClassExpression
+
+export type Statement =
+  | ExpressionStatement
+  | BlockStatement
+  | EmptyStatement
+  | DebuggerStatement
+  | ReturnStatement
+  | LabeledStatement
+  | BreakStatement
+  | ContinueStatement
+  | IfStatement
+  | SwitchStatement
+  | ThrowStatement
+  | TryStatement
+  | WhileStatement
+  | DoWhileStatement
+  | ForStatement
+  | ForInStatement
+
+export type Declaration = FunctionDeclaration | VariableDeclaration | ClassDeclaration
+
+export interface Identifier extends Node {
   type: Type.Identifier
   name: string
   typeAnnotation: TypeAnnotation | null
 }
 
-export interface Literal extends Expression {
+export interface Literal extends Node {
   type: Type.Literal
   value: string | boolean | null | number | RegExp | bigint
 }
@@ -77,70 +151,63 @@ export interface Program extends Node {
 }
 
 export interface Function extends Node {
-  type: Type.Function
   id: Identifier | null
   params: Pattern[]
   body: FunctionBody
   generator: boolean
   async: boolean
-  returnType: TypeAnnotation | null;
+  returnType: TypeAnnotation | null
 }
 
-export interface Statement extends Node {
-  type: Type.Statement
-}
-
-export interface ExpressionStatement extends Statement {
-  type: Type.ExpressionStatement,
+export interface ExpressionStatement extends Node {
+  type: Type.ExpressionStatement
   expression: Expression
 }
 
-export interface BlockStatement extends Statement {
+export interface BlockStatement extends Node {
   type: Type.BlockStatement
   body: Statement[]
 }
 
-export interface FunctionBody extends BlockStatement {
-  type: Type.FunctionBody
-}
+export interface FunctionBody extends BlockStatement {}
 
-export interface EmptyStatement extend Statement {
+export interface EmptyStatement extends Node {
   type: Type.EmptyStatement
 }
 
-export interface DebuggerStatement extends Statement {
+export interface DebuggerStatement extends Node {
   type: Type.DebuggerStatement
 }
 
-export interface ReturnStatement extends Statement {
+export interface ReturnStatement extends Node {
   type: Type.ReturnStatement
   argument: Expression | null
 }
 
-export interface LabeledStatement extends Statement {
+export interface LabeledStatement extends Node {
   type: Type.LabeledStatement
   label: Identifier
   body: Statement
 }
 
-export interface BreakStatement extends Statement {
+export interface BreakStatement extends Node {
   type: Type.BreakStatement
   label: Identifier | null
 }
 
-export interface ContinueStatement extends Statement {
+export interface ContinueStatement extends Node {
   type: Type.ContinueStatement
   label: Identifier | null
 }
 
-export interface IfStatement extends Statement {
+export interface IfStatement extends Node {
   type: Type.IfStatement
   test: Expression
   consequent: Statement
   alternate: Statement | null
 }
 
-export interface SwitchStatement extends Statement {
+export interface SwitchStatement extends Node {
   type: Type.SwitchStatement
   discriminant: Expression
   cases: SwitchCase[]
@@ -152,12 +219,12 @@ export interface SwitchCase extends Node {
   consequent: Statement[]
 }
 
-export interface ThrowStatement extends Statement {
+export interface ThrowStatement extends Node {
   type: Type.ThrowStatement
   argument: Expression
 }
 
-export interface TryStatement extends Statement {
+export interface TryStatement extends Node {
   type: Type.TryStatement
   block: BlockStatement
   handler: CatchClause | null
@@ -170,19 +237,19 @@ export interface CatchClause extends Node {
   body: BlockStatement
 }
 
-export interface WhileStatement extends Statement {
+export interface WhileStatement extends Node {
   type: Type.WhileStatement
   test: Expression
   body: Statement
 }
 
-export interface DoWhileStatement extends Statement {
+export interface DoWhileStatement extends Node {
   type: Type.DoWhileStatement
   body: Statement
   test: Expression
 }
 
-export interface ForStatement extends Statement {
+export interface ForStatement extends Node {
   type: Type.ForStatement
   init: VariableDeclaration | Expression | null
   test: Expression | null
@@ -190,29 +257,24 @@ export interface ForStatement extends Statement {
   body: Statement
 }
 
-export interface ForInStatement extends Statement {
+export interface ForInStatement extends Node {
   type: Type.ForInStatement
   left: VariableDeclaration | Pattern
   right: Expression
   body: Statement
-  // each: boolean
 }
 
-export interface ForOfStatement extends ForInStatement {
+export interface ForOfStatement extends Omit<ForInStatement, 'type'> {
   type: Type.ForOfStatement
   await: boolean
 }
 
-export interface Declaration extends Node {
-  type: Type.Declaration
-}
-
-export interface FunctionDeclaration extends Function, Declaration {
+export interface FunctionDeclaration extends Function {
   type: Type.FunctionDeclaration
   id: Identifier
 }
 
-export interface VariableDeclaration extends Declaration {
+export interface VariableDeclaration {
   type: Type.VariableDeclaration
   declarations: VariableDeclarator[]
   kind: 'var' | 'let' | 'const'
@@ -224,27 +286,23 @@ export interface VariableDeclarator extends Node {
   init: Expression | null
 }
 
-export interface Expression extends Node {
-  type: Type.Expression
-}
-
-export interface ThisExpression extends Expression {
+export interface ThisExpression extends Node {
   type: Type.ThisExpression
 }
 
-export interface ArrayExpression extends Expression {
+export interface ArrayExpression extends Node {
   type: Type.ArrayExpression
   elements: (Expression | SpreadElement | null)[]
 }
 
-export interface ObjectExpression extends Expression {
+export interface ObjectExpression extends Node {
   type: Type.ObjectExpression
   properties: (Property | SpreadElement)[]
 }
 
 export interface Property extends Node {
   type: Type.Property
-  key: Property // Literal | Identifier
+  key: Expression
   value: Expression
   kind: 'init' | 'get' | 'set'
   method: boolean
@@ -252,11 +310,11 @@ export interface Property extends Node {
   shorthand: boolean
 }
 
-export interface FunctionExpression extends Function, Expression {
+export interface FunctionExpression extends Function {
   type: Type.FunctionExpression
 }
 
-export interface UnaryExpression extends Expression {
+export interface UnaryExpression extends Node {
   type: Type.UnaryExpression
   operator: UnaryOperator
   prefix: boolean
@@ -271,10 +329,9 @@ export enum UnaryOperator {
   typeof = 'typeof',
   void = 'void',
   delete = 'delete',
-
 }
 
-export interface UpdateExpression extends Expression {
+export interface UpdateExpression extends Node {
   type: Type.UpdateExpression
   operator: UpdateOperator
   argument: Expression
@@ -286,7 +343,7 @@ export enum UpdateOperator {
   '--' = '--',
 }
 
-export interface BinaryExpression extends Expression {
+export interface BinaryExpression extends Node {
   type: Type.BinaryExpression
   operator: BinaryOperator
   left: Expression | PrivateIdentifier
@@ -318,7 +375,7 @@ export enum BinaryOperator {
   '**' = '**',
 }
 
-export interface AssignmentExpression extends Expression {
+export interface AssignmentExpression extends Node {
   type: Type.AssignmentExpression
   operator: AssignmentOperator
   left: Pattern
@@ -344,7 +401,7 @@ export enum AssignmentOperator {
   '??=' = '??=',
 }
 
-export interface LogicalExpression extends Expression {
+export interface LogicalExpression extends Node {
   type: Type.LogicalExpression
   operator: LogicalOperator
   left: Expression
@@ -357,39 +414,35 @@ export enum LogicalOperator {
   '??' = '??',
 }
 
-export interface MemberExpression extends Expression, ChainElement {
+export interface MemberExpression extends Node, ChainElement {
   type: Type.MemberExpression
   object: Expression | Super
   property: Expression | PrivateIdentifier
   computed: boolean
 }
 
-export interface ConditionalExpression extends Expression {
+export interface ConditionalExpression extends Node {
   type: Type.ConditionalExpression
   test: Expression
   consequent: Expression
   alternate: Expression
 }
 
-export interface CallExpression extends Expression, ChainElement {
+export interface CallExpression extends Node, ChainElement {
   type: Type.CallExpression
   callee: Expression | Super
   arguments: (Expression | SpreadElement)[]
 }
 
-export interface NewExpression extends Expression {
+export interface NewExpression extends Node {
   type: Type.NewExpression
   callee: Expression
   arguments: (Expression | SpreadElement)[]
 }
 
-export interface SequenceExpression extends Expression {
+export interface SequenceExpression extends Node {
   type: Type.SequenceExpression
   expressions: Expression[]
-}
-
-export interface Pattern extends Node {
-  type: Type.Pattern
 }
 
 export interface Super extends Node {
@@ -401,25 +454,25 @@ export interface SpreadElement extends Node {
   argument: Expression
 }
 
-export interface ArrowFunctionExpression extends Function, Expression {
+export interface ArrowFunctionExpression extends Omit<Function, 'body'> {
   type: Type.ArrowFunctionExpression
-  body: FunctionBody | Expression;
-  expression: boolean;
+  body: FunctionBody | Expression
+  expression: boolean
 }
 
-export interface YieldExpression extends Expression {
+export interface YieldExpression extends Node {
   type: Type.YieldExpression
   argument: Expression | null
   delegate: boolean
 }
 
-export interface TemplateLiteral extends Expression {
+export interface TemplateLiteral extends Node {
   type: Type.TemplateLiteral
   quasis: TemplateElement[]
   expressions: Expression[]
 }
 
-export interface TaggedTemplateExpression extends Expression {
+export interface TaggedTemplateExpression extends Node {
   type: Type.TaggedTemplateExpression
   tag: Expression
   quasi: TemplateLiteral
@@ -434,39 +487,37 @@ export interface TemplateElement extends Node {
   }
 }
 
-export interface AssignmentProperty extends Property {
-  // type: Type.AssignmentProperty
-  value: Pattern;
-  kind: "init";
-  method: false;
+export interface AssignmentProperty extends Omit<Property, 'value'> {
+  value: Pattern
+  kind: 'init'
+  method: false
 }
 
-export interface ObjectPattern extends Pattern {
+export interface ObjectPattern extends Node {
   type: Type.ObjectPattern
-  properties: (AssignmentProperty | RestElement)[] // (AssignmentProperty | Property | SpreadElement)[]
-  typeAnnotation: TypeAnnotation | null;
+  properties: (AssignmentProperty | RestElement)[]
+  typeAnnotation: TypeAnnotation | null
 }
 
-export interface ArrayPattern extends Pattern {
+export interface ArrayPattern extends Node {
   type: Type.ArrayPattern
   elements: (Pattern | null)[]
-  typeAnnotation: TypeAnnotation | null;
+  typeAnnotation: TypeAnnotation | null
 }
 
-export interface RestElement extends Pattern {
+export interface RestElement extends Node {
   type: Type.RestElement
   argument: Pattern
-  typeAnnotation: TypeAnnotation | null;
+  typeAnnotation: TypeAnnotation | null
 }
 
-export interface AssignmentPattern extends Pattern {
+export interface AssignmentPattern extends Node {
   type: Type.AssignmentPattern
   left: Pattern
   right: Expression
 }
 
 export interface Class extends Node {
-  type: Type.Class
   id: Identifier | null
   superClass: Expression | null
   body: ClassBody
@@ -486,12 +537,12 @@ export interface MethodDefinition extends Node {
   static: boolean
 }
 
-export interface ClassDeclaration extends Class, Declaration {
+export interface ClassDeclaration extends Class {
   type: Type.ClassDeclaration
   id: Identifier
 }
 
-export interface ClassExpression extends Class, Expression {
+export interface ClassExpression extends Class {
   type: Type.ClassExpression
 }
 
@@ -501,8 +552,7 @@ export interface MetaProperty extends Node {
   property: Identifier
 }
 
-export interface ModuleDeclaration extends Node {
-}
+export interface ModuleDeclaration extends Node {}
 
 export interface ModuleSpecifier extends Node {
   local: Identifier
@@ -530,7 +580,7 @@ export interface ImportNamespaceSpecifier extends ModuleSpecifier {
 export interface ExportNamedDeclaration extends ModuleDeclaration {
   type: Type.ExportNamedDeclaration
   declaration: Declaration | null
-  specifiers: (ExportSpecifier)[]
+  specifiers: ExportSpecifier[]
   source: Literal | null
 }
 
@@ -539,47 +589,51 @@ export interface ExportSpecifier extends ModuleSpecifier {
   exported: Identifier
 }
 
-export interface AnonymousDefaultExportedFunctionDeclaration extends FunctionDeclaration {
+export interface AnonymousDefaultExportedFunctionDeclaration extends Omit<FunctionDeclaration, 'id'> {
   type: Type.FunctionDeclaration
   id: null
 }
 
-export interface AnonymousDefaultExportedClassDeclaration extends ClassDeclaration {
+export interface AnonymousDefaultExportedClassDeclaration extends Omit<ClassDeclaration, 'id'> {
   type: Type.ClassDeclaration
   id: null
 }
 
 export interface ExportDefaultDeclaration extends ModuleDeclaration {
   type: Type.ExportDefaultDeclaration
-  declaration: AnonymousDefaultExportedFunctionDeclaration | FunctionDeclaration | AnonymousDefaultExportedClassDeclaration | ClassDeclaration | Expression
+  declaration:
+    | AnonymousDefaultExportedFunctionDeclaration
+    | FunctionDeclaration
+    | AnonymousDefaultExportedClassDeclaration
+    | ClassDeclaration
+    | Expression
 }
 
 export interface ExportAllDeclaration extends ModuleDeclaration {
   type: Type.ExportAllDeclaration
   source: Literal
-  exported: Identifier | null;
+  exported: Identifier | null
 }
 
-export interface AwaitExpression extends Expression {
+export interface AwaitExpression extends Node {
   type: Type.AwaitExpression
   argument: Expression
 }
 
 export interface BigIntLiteral extends Literal {
-  bigint: string;
+  bigint: string
 }
 
-export interface ChainExpression extends Expression {
+export interface ChainExpression extends Node {
   type: Type.ChainExpression
   expression: ChainElement
 }
 
 export interface ChainElement extends Node {
-  type: Type.ChainElement
   optional: boolean
 }
 
-export interface ImportExpression extends Expression {
+export interface ImportExpression extends Node {
   type: Type.ImportExpression
   source: Expression
 }
@@ -588,7 +642,6 @@ export interface PropertyDefinition extends Node {
   type: Type.PropertyDefinition
   key: Expression | PrivateIdentifier
   value: Expression | null
-  // kind: 'init' | 'get' | 'set'
   computed: boolean
   static: boolean
 }
@@ -598,7 +651,7 @@ export interface PrivateIdentifier extends Node {
   name: string
 }
 
-export interface StaticBlock extends BlockStatement {
+export interface StaticBlock extends Omit<BlockStatement, 'type'> {
   type: Type.StaticBlock
 }
 
