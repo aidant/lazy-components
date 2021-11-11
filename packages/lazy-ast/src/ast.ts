@@ -1,4 +1,4 @@
-export enum Type {
+export const enum Type {
   Identifier = 'Identifier',
   Literal = 'Literal',
   Program = 'Program',
@@ -121,6 +121,12 @@ export type Statement =
   | DoWhileStatement
   | ForStatement
   | ForInStatement
+
+export type ModuleDeclaration = 
+  | ImportDeclaration
+  | ExportNamedDeclaration
+  | ExportDefaultDeclaration
+  | ExportAllDeclaration
 
 export type Declaration = FunctionDeclaration | VariableDeclaration | ClassDeclaration
 
@@ -321,7 +327,7 @@ export interface UnaryExpression extends Node {
   argument: Expression
 }
 
-export enum UnaryOperator {
+export const enum UnaryOperator {
   '+' = '+',
   '-' = '-',
   '~' = '~',
@@ -338,7 +344,7 @@ export interface UpdateExpression extends Node {
   prefix: boolean
 }
 
-export enum UpdateOperator {
+export const enum UpdateOperator {
   '++' = '++',
   '--' = '--',
 }
@@ -350,7 +356,7 @@ export interface BinaryExpression extends Node {
   right: Expression
 }
 
-export enum BinaryOperator {
+export const enum BinaryOperator {
   '==' = '==',
   '!=' = '!=',
   '===' = '===',
@@ -382,7 +388,7 @@ export interface AssignmentExpression extends Node {
   right: Expression
 }
 
-export enum AssignmentOperator {
+export const enum AssignmentOperator {
   '=' = '=',
   '+=' = '+=',
   '-=' = '-=',
@@ -408,7 +414,7 @@ export interface LogicalExpression extends Node {
   right: Expression
 }
 
-export enum LogicalOperator {
+export const enum LogicalOperator {
   '||' = '||',
   '&&' = '&&',
   '??' = '??',
@@ -552,13 +558,11 @@ export interface MetaProperty extends Node {
   property: Identifier
 }
 
-export interface ModuleDeclaration extends Node {}
-
 export interface ModuleSpecifier extends Node {
   local: Identifier
 }
 
-export interface ImportDeclaration extends ModuleDeclaration {
+export interface ImportDeclaration extends Node {
   type: Type.ImportDeclaration
   specifiers: (ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier)[]
   source: Literal
@@ -577,7 +581,7 @@ export interface ImportNamespaceSpecifier extends ModuleSpecifier {
   type: Type.ImportNamespaceSpecifier
 }
 
-export interface ExportNamedDeclaration extends ModuleDeclaration {
+export interface ExportNamedDeclaration extends Node {
   type: Type.ExportNamedDeclaration
   declaration: Declaration | null
   specifiers: ExportSpecifier[]
@@ -589,7 +593,8 @@ export interface ExportSpecifier extends ModuleSpecifier {
   exported: Identifier
 }
 
-export interface AnonymousDefaultExportedFunctionDeclaration extends Omit<FunctionDeclaration, 'id'> {
+export interface AnonymousDefaultExportedFunctionDeclaration
+  extends Omit<FunctionDeclaration, 'id'> {
   type: Type.FunctionDeclaration
   id: null
 }
@@ -599,7 +604,7 @@ export interface AnonymousDefaultExportedClassDeclaration extends Omit<ClassDecl
   id: null
 }
 
-export interface ExportDefaultDeclaration extends ModuleDeclaration {
+export interface ExportDefaultDeclaration extends Node {
   type: Type.ExportDefaultDeclaration
   declaration:
     | AnonymousDefaultExportedFunctionDeclaration
@@ -609,7 +614,7 @@ export interface ExportDefaultDeclaration extends ModuleDeclaration {
     | Expression
 }
 
-export interface ExportAllDeclaration extends ModuleDeclaration {
+export interface ExportAllDeclaration extends Node {
   type: Type.ExportAllDeclaration
   source: Literal
   exported: Identifier | null

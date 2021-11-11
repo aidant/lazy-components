@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "composite": true,
     "declaration": true,
+    "declarationMap": true,
     "lib": ["ES2020", "WebWorker"],
     "module": "ESNext",
     "moduleResolution": "Node",
-    "outDir": "lib",
-    "rootDir": "src",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,

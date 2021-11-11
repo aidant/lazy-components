@@ -1,0 +1,27 @@
+{
+  "name": "@lazy/ast",
+  "version": "1.0.0-alpha.0",
+  "description": "",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "directory": "packages/lazy-sdk",
+    "type": "git",
+    "url": "https://github.com/aidant/lazy-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aidant/lazy-components/issues"
+  },
+  "homepage": "https://github.com/aidant/lazy-components#readme",
+  "keywords": [
+    "lazy",
+    "components"
+  ],
+  "main": "lib/ast.js",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "types": "lib/ast.d.ts"
+}

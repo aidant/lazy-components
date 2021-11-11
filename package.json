@@ -1,24 +1,13 @@
 {
-  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "start": "concurrently --kill-others-on-fail npm:start:typescript npm:start:nodemon",
-    "start:typescript": "tsc --watch --preserveWatchOutput",
-    "start:nodemon": "nodemon --watch lib ./lib/entrypoint.js",
-    "build": "tsc"
+    "build": "npm --workspaces run --if-present build",
+    "test": "npm --workspaces run --if-present test"
   },
   "dependencies": {
-    "acorn": "^8.5.0",
-    "esast-util-from-estree": "^1.1.0",
-    "prettier": "^2.4.1",
-    "svelte": "^3.43.1",
-    "unist-builder": "^3.0.0",
-    "unist-util-filter": "^4.0.0",
-    "unist-util-map": "^3.0.0",
-    "unist-util-remove-position": "^4.0.1"
-  },
-  "devDependencies": {
-    "concurrently": "^6.2.1",
-    "nodemon": "^2.0.12",
-    "typescript": "^4.4.2"
+    "ava": "^3.15.0",
+    "typescript": "^4.4.4"
   }
 }
