@@ -19,7 +19,8 @@
   ],
   "main": "lib/compiler.js",
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "test": "mocha ./**/*.test.js"
   },
   "sideEffects": false,
   "type": "module",

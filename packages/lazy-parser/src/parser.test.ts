@@ -1,11 +1,11 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
-import { parser } from './parser.js'
+import { parse } from './parser.js'
 
 describe('parser', () => {
   it('parses a simple component', () => {
     expect(
-      parser(`
+      parse(`
         export let title = 'Hello World!'
 
         <div role="heading" aria-level=1>
@@ -40,10 +40,6 @@ describe('parser', () => {
           source: null,
         },
         {
-          type: 'Literal', // This should not exist?
-          value: '',
-        },
-        {
           type: 'Element',
           tag: 'div',
           attributes: [
@@ -70,19 +66,11 @@ describe('parser', () => {
           ],
           children: [
             {
-              type: 'Literal', // Should this exist?
-              value: '',
-            },
-            {
               type: 'DataBinding',
               expression: {
                 type: 'Identifier',
                 name: 'title',
               },
-            },
-            {
-              type: 'Literal', // Should this exist?
-              value: '',
             },
           ],
         },

@@ -2,7 +2,7 @@ import { Program } from '@lazy/ast'
 import { parseScript } from './parse-script.js'
 import { parseTemplate } from './parse-template.js'
 
-export const parser = (source: string): Program => {
+export const parse = (source: string): Program => {
   const separatorIndex = source.search(/(?:^|\s+)</m)
 
   const sourceScript = source.substring(0, separatorIndex)
