@@ -1,55 +1,92 @@
-import test from 'ava'
-import { Program, Type } from '@lazy/ast'
+import { describe, it } from 'mocha'
+import { expect } from 'chai'
 import { parser } from './parser.js'
 
-test('parser', t => {
-  t.like(parser(`
-    export let title = 'Hello World!'
+describe('parser', () => {
+  it('parses a simple component', () => {
+    expect(
+      parser(`
+        export let title = 'Hello World!'
 
-    <div role="heading" aria-level="1">
-      {{ title }}
-    </div>
-  `), {
-    type: 'Program' as Type.Program,
-    sourceType: 'module',
-    body: [
-      {
-        type: 'ExportNamedDeclaration' as Type.ExportNamedDeclaration,
-        declaration: {
-          type: 'VariableDeclaration' as Type.VariableDeclaration,
-          declarations: [
-            {
-              type: 'VariableDeclarator' as Type.VariableDeclarator,
-              id: {
-                type: 'Identifier' as Type.Identifier,
-                typeAnnotation: null,
-                name: 'title'
+        <div role="heading" aria-level=1>
+          { title }
+        </div>
+      `)
+    ).to.deep.equal({
+      type: 'Program',
+      sourceType: 'module',
+      body: [
+        {
+          type: 'ExportNamedDeclaration',
+          declaration: {
+            type: 'VariableDeclaration',
+            declarations: [
+              {
+                type: 'VariableDeclarator',
+                id: {
+                  type: 'Identifier',
+                  // typeAnnotation: null,
+                  name: 'title',
+                },
+                init: {
+                  type: 'Literal',
+                  value: 'Hello World!',
+                },
               },
-              init: {
-                type: 'Literal' as Type.Literal,
-                value: 'Hello World!'
-              }
-            } 
-          ],
-          kind: 'let',
+            ],
+            kind: 'let',
+          },
+          specifiers: [],
+          source: null,
         },
-        specifiers: [
-          {
-            type: 'ExportSpecifier' as Type.ExportSpecifier,
-            local: {
-              type: 'Identifier' as Type.Identifier,
-              typeAnnotation: null,
-              name: 'title'
+        {
+          type: 'Literal', // This should not exist?
+          value: '',
+        },
+        {
+          type: 'Element',
+          tag: 'div',
+          attributes: [
+            {
+              type: 'Attribute',
+              name: 'role',
+              value: [
+                {
+                  type: 'Literal',
+                  value: 'heading',
+                },
+              ],
             },
-            exported: {
-              type: 'Identifier' as Type.Identifier,
-              typeAnnotation: null,
-              name: 'title'
-            }
-          }
-        ],
-        source: null
-      }
-    ]
+            {
+              type: 'Attribute',
+              name: 'aria-level',
+              value: [
+                {
+                  type: 'Literal',
+                  value: 1,
+                },
+              ],
+            },
+          ],
+          children: [
+            {
+              type: 'Literal', // Should this exist?
+              value: '',
+            },
+            {
+              type: 'DataBinding',
+              expression: {
+                type: 'Identifier',
+                name: 'title',
+              },
+            },
+            {
+              type: 'Literal', // Should this exist?
+              value: '',
+            },
+          ],
+        },
+      ],
+    })
   })
 })

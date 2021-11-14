@@ -20,13 +20,14 @@
   "main": "lib/parser.js",
   "scripts": {
     "build": "tsc --build",
-    "test": "ava"
+    "test": "mocha ./**/*.test.js"
   },
   "sideEffects": false,
   "type": "module",
   "types": "lib/parser.d.ts",
   "dependencies": {
     "@babel/parser": "^7.16.3",
+    "estree-walker": "^3.0.0",
     "svelte": "^3.44.1"
   },
   "devDependencies": {

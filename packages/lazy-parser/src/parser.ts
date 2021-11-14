@@ -1,4 +1,4 @@
-import { Type, Program } from '@lazy/ast'
+import { Program } from '@lazy/ast'
 import { parseScript } from './parse-script.js'
 import { parseTemplate } from './parse-template.js'
 
@@ -12,11 +12,8 @@ export const parser = (source: string): Program => {
   const astTemplate = parseTemplate(sourceTemplate)
 
   return {
-    type: Type.Program,
+    type: 'Program',
     sourceType: 'module',
-    body: [
-      ...astJavaScript,
-      ...astTemplate,
-    ],
+    body: [...astJavaScript, ...astTemplate],
   }
 }

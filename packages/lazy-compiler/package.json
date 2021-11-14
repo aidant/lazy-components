@@ -17,11 +17,11 @@
     "lazy",
     "components"
   ],
-  "main": "lib/index.js",
+  "main": "lib/compiler.js",
   "scripts": {
     "build": "tsc --build"
   },
   "sideEffects": false,
   "type": "module",
-  "types": "lib/index.d.ts"
+  "types": "lib/compiler.d.ts"
 }
