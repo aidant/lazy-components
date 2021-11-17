@@ -5,7 +5,7 @@ import { compile } from '@lazy/compiler'
 import process from 'node:process'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { generate } from 'astring'
+import { generate } from 'escodegen'
 import prettier from 'prettier'
 
 const inputPath = path.relative(process.cwd(), process.argv[2])

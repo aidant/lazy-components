@@ -4,6 +4,7 @@ import {
   Literal,
   MethodDefinition,
   Program,
+  PropertyDefinition,
   Statement,
 } from '@lazy/ast'
 import { toUpperCamelCase } from './to-upper-camel-case.js'
@@ -14,6 +15,8 @@ export interface ComponentBoilerplateOptions {
   observedAttributes?: Literal[]
   classMethodDefinitions?: MethodDefinition[]
   classConstructorBody?: Statement[]
+  classPropertyDefinitions?: PropertyDefinition[]
+  attributeChangedCallbackBody?: ExpressionStatement[]
 }
 
 export const getComponentBoilerplate = ({
@@ -22,6 +25,8 @@ export const getComponentBoilerplate = ({
   observedAttributes = [],
   classMethodDefinitions = [],
   classConstructorBody = [],
+  classPropertyDefinitions = [],
+  attributeChangedCallbackBody = [],
 }: ComponentBoilerplateOptions): Program => {
   return {
     type: 'Program',
@@ -72,6 +77,7 @@ export const getComponentBoilerplate = ({
                   },
                 },
               },
+              ...classPropertyDefinitions,
               {
                 type: 'MethodDefinition',
                 kind: 'constructor',
@@ -157,7 +163,9 @@ export const getComponentBoilerplate = ({
                   ],
                   body: {
                     type: 'BlockStatement',
-                    body: [],
+                    body: [
+                      ...attributeChangedCallbackBody,
+                    ],
                   },
                 },
               },

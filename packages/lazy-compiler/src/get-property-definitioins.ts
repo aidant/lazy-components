@@ -62,7 +62,7 @@ export const getPropertyDefinitions = (props: Prop[]): ExpressionStatement => {
                 type: 'ExpressionStatement',
                 expression: {
                   type: 'AssignmentExpression',
-                  operator: AssignmentOperator['='],
+                  operator: '=',
                   left: {
                     type: 'Identifier',
                     name: prop.internalName,

@@ -26,11 +26,12 @@
   "type": "module",
   "types": "lib/components-cli.d.ts",
   "devDependencies": {
+    "@types/escodegen": "^0.0.7",
     "@types/node": "^16.11.7",
     "@types/prettier": "^2.4.2"
   },
   "dependencies": {
-    "astring": "^1.7.5",
+    "escodegen": "npm:@javascript-obfuscator/escodegen@^2.2.2",
     "prettier": "^2.4.1"
   },
   "bin": {

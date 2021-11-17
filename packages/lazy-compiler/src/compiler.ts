@@ -4,6 +4,8 @@ import { getComponentBoilerplate } from './get-component-boilerplate.js'
 import { getObservedAttributes } from './get-observed-attributes.js'
 import { getProps } from './get-props.js'
 import { getScopeDefinitions } from './get-scope-definitions.js'
+import { getPublicInstanceFields } from './get-public-instance-fields.js'
+import { getAttributeChangedCallbackBody } from './get-attribute-changed-callback-body.js'
 
 export const compile = (name: string, program: Program): Program => {
   const imports: ImportDeclaration[] = []
@@ -35,5 +37,7 @@ export const compile = (name: string, program: Program): Program => {
     imports,
     observedAttributes: getObservedAttributes(props),
     classConstructorBody: [...getScopeDefinitions(props), getPropertyDefinitions(props)],
+    classPropertyDefinitions: [...getPublicInstanceFields(props)],
+    attributeChangedCallbackBody: [...getAttributeChangedCallbackBody(props)],
   })
 }

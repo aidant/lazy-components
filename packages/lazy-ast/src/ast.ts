@@ -278,15 +278,14 @@ export interface UnaryExpression extends Node {
   argument: Expression
 }
 
-export const enum UnaryOperator {
-  '+' = '+',
-  '-' = '-',
-  '~' = '~',
-  '!' = '!',
-  typeof = 'typeof',
-  void = 'void',
-  delete = 'delete',
-}
+export type UnaryOperator =
+  | '+'
+  | '-'
+  | '~'
+  | '!'
+  | 'typeof'
+  | 'void'
+  | 'delete'
 
 export interface UpdateExpression extends Node {
   type: 'UpdateExpression'
@@ -295,10 +294,9 @@ export interface UpdateExpression extends Node {
   prefix: boolean
 }
 
-export const enum UpdateOperator {
-  '++' = '++',
-  '--' = '--',
-}
+export type UpdateOperator =
+  | '++'
+  | '--'
 
 export interface BinaryExpression extends Node {
   type: 'BinaryExpression'
@@ -307,30 +305,29 @@ export interface BinaryExpression extends Node {
   right: Expression
 }
 
-export const enum BinaryOperator {
-  '==' = '==',
-  '!=' = '!=',
-  '===' = '===',
-  '!==' = '!==',
-  '<' = '<',
-  '<=' = '<=',
-  '>' = '>',
-  '>=' = '>=',
-  '<<' = '<<',
-  '>>' = '>>',
-  '>>>' = '>>>',
-  '+' = '+',
-  '-' = '-',
-  '*' = '*',
-  '/' = '/',
-  '%' = '%',
-  '|' = '|',
-  '^' = '^',
-  '&' = '&',
-  'in' = 'in',
-  'instanceof' = 'instanceof',
-  '**' = '**',
-}
+export type BinaryOperator =
+  | '=='
+  | '!='
+  | '==='
+  | '!=='
+  | '<'
+  | '<='
+  | '>'
+  | '>='
+  | '<<'
+  | '>>'
+  | '>>>'
+  | '+'
+  | '-'
+  | '*'
+  | '/'
+  | '%'
+  | '|'
+  | '^'
+  | '&'
+  | 'in'
+  | 'instanceof'
+  | '**'
 
 export interface AssignmentExpression extends Node {
   type: 'AssignmentExpression'
@@ -339,24 +336,23 @@ export interface AssignmentExpression extends Node {
   right: Expression
 }
 
-export const enum AssignmentOperator {
-  '=' = '=',
-  '+=' = '+=',
-  '-=' = '-=',
-  '*=' = '*=',
-  '/=' = '/=',
-  '%=' = '%=',
-  '<<=' = '<<=',
-  '>>=' = '>>=',
-  '>>>=' = '>>>=',
-  '|=' = '|=',
-  '^=' = '^=',
-  '&=' = '&=',
-  '**=' = '**=',
-  '||=' = '||=',
-  '&&=' = '&&=',
-  '??=' = '??=',
-}
+export type AssignmentOperator =
+  | '='
+  | '+='
+  | '-='
+  | '*='
+  | '/='
+  | '%='
+  | '<<='
+  | '>>='
+  | '>>>='
+  | '|='
+  | '^='
+  | '&='
+  | '**='
+  | '||='
+  | '&&='
+  | '??='
 
 export interface LogicalExpression extends Node {
   type: 'LogicalExpression'
@@ -365,11 +361,10 @@ export interface LogicalExpression extends Node {
   right: Expression
 }
 
-export const enum LogicalOperator {
-  '||' = '||',
-  '&&' = '&&',
-  '??' = '??',
-}
+export type LogicalOperator =
+  | '||'
+  | '&&'
+  | '??'
 
 export interface MemberExpression extends Node, ChainElement {
   type: 'MemberExpression'
@@ -454,7 +449,7 @@ export interface ImportExpression extends Node {
   source: Expression
 }
 
-export type Pattern = Identifier | ObjectPattern | ArrayPattern | RestElement | AssignmentPattern
+export type Pattern = Identifier | ObjectPattern | ArrayPattern | RestElement | AssignmentPattern | MemberExpression
 
 export interface AssignmentProperty extends Omit<Property, 'value'> {
   value: Pattern
