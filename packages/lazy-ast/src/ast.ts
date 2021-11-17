@@ -74,6 +74,7 @@ export type Statement =
   | ForStatement
   | ForInStatement
   | ForOfStatement
+  | Declaration
 
 export interface ExpressionStatement extends Node {
   type: 'ExpressionStatement'

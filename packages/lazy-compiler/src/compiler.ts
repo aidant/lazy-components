@@ -1,76 +1,39 @@
-import { Program } from '@lazy/ast' 
-import { toUpperCamelCase } from './to-upper-camel-case.js'
+import { Element, ExportNamedDeclaration, ImportDeclaration, Program, Statement } from '@lazy/ast'
+import { getPropertyDefinitions } from './get-property-definitioins.js'
+import { getComponentBoilerplate } from './get-component-boilerplate.js'
+import { getObservedAttributes } from './get-observed-attributes.js'
+import { getProps } from './get-props.js'
+import { getScopeDefinitions } from './get-scope-definitions.js'
 
 export const compile = (name: string, program: Program): Program => {
-  return {
-    type: 'Program',
-    sourceType: 'module',
-    body: [
-      {
-        type: 'ExportNamedDeclaration',
-        declaration: {
-          type: 'ClassDeclaration',
-          id: {
-            type: 'Identifier',
-            name: toUpperCamelCase(name)
-          },
-          superClass: {
-            type: 'Identifier',
-            name: 'HTMLElement'
-          },
-          body: {
-            type: 'ClassBody',
-            body: [
-              // { 
-              //   type: 'MethodDefinition',
-              //   kind: 'constructor',
-              //   computed: false,
-              //   key: {
-              //     type: 'Identifier',
-              //     name: 'constructor'
-              //   },
-              //   static: false,
-              //   value: {
-              //     type: 'FunctionExpression',
-              //     async: false,
-              //   }
-              // }
-            ]
-          }
-        },
-        specifiers: [],
-        source: null
-      },
-      {
-        type: 'ExpressionStatement',
-        expression: {
-          type: 'CallExpression',
-          callee: {
-            type: 'MemberExpression',
-            object: {
-              type: 'Identifier',
-              name: 'customElements'
-            },
-            property: {
-              type: 'Identifier',
-              name: 'define'
-            },
-            computed: false,
-            optional: false
-          },
-          arguments: [
-            {
-              type: 'Literal',
-              value: name,
-            },
-            {
-              type: 'Identifier',
-              name: toUpperCamelCase(name)
-            }
-          ],
-          optional: false
-        }
-      }
-    ]
+  const imports: ImportDeclaration[] = []
+  const exports: ExportNamedDeclaration[] = []
+  const fragment: (Statement | Element)[] = []
+
+  for (const node of program.body) {
+    switch (node.type) {
+      case 'ImportDeclaration':
+        imports.push(node)
+        break
+      case 'ExportNamedDeclaration':
+        exports.push(node)
+        break
+      case 'ExportDefaultDeclaration':
+        throw new Error('ExportDefaultDeclaration is not supported')
+      case 'ExportAllDeclaration':
+        throw new Error('ExportAllDeclaration is not supported')
+      default:
+        fragment.push(node)
+        break
+    }
   }
+
+  const props = getProps(exports)
+
+  return getComponentBoilerplate({
+    name,
+    imports,
+    observedAttributes: getObservedAttributes(props),
+    classConstructorBody: [...getScopeDefinitions(props), getPropertyDefinitions(props)],
+  })
 }

@@ -1,3 +1,5 @@
-export const toUpperCamelCase = (kebabCase: string): string => {
-  return kebabCase.replace(/(?:^|-)(\w)/g, (_, c) => c.toUpperCase())
+import _ from 'lodash'
+
+export const toUpperCamelCase = (string: string): string => {
+  return _.capitalize(_.camelCase(string))
 }

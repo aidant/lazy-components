@@ -1,11 +1,11 @@
 {
-  "name": "@lazy/parser",
+  "name": "@lazy/components-cli",
   "version": "1.0.0-alpha.0",
   "description": "",
   "license": "MIT",
   "private": true,
   "repository": {
-    "directory": "packages/lazy-parser",
+    "directory": "packages/lazy-components-cli",
     "type": "git",
     "url": "https://github.com/aidant/lazy-components.git"
   },
@@ -17,21 +17,23 @@
     "lazy",
     "components"
   ],
-  "main": "lib/parser.js",
+  "main": "lib/components-cli.js",
   "scripts": {
     "build": "tsc --build",
     "test": "mocha ./**/*.test.js"
   },
   "sideEffects": false,
   "type": "module",
-  "types": "lib/parser.d.ts",
-  "dependencies": {
-    "@babel/parser": "^7.16.3",
-    "estree-walker": "^3.0.0",
-    "svelte": "^3.44.1"
-  },
+  "types": "lib/components-cli.d.ts",
   "devDependencies": {
-    "@babel/types": "^7.16.0",
-    "@lazy/ast": "*"
+    "@types/node": "^16.11.7",
+    "@types/prettier": "^2.4.2"
+  },
+  "dependencies": {
+    "astring": "^1.7.5",
+    "prettier": "^2.4.1"
+  },
+  "bin": {
+    "lazy-components": "lib/components-cli.js"
   }
 }

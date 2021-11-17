@@ -69,8 +69,6 @@ describe('compiler', () => {
           },
         ],
       })
-    ).to.deep.equal({
-
-    })
+    ).to.deep.equal({})
   })
 })

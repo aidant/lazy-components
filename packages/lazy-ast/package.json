@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "repository": {
-    "directory": "packages/lazy-sdk",
+    "directory": "packages/lazy-ast",
     "type": "git",
     "url": "https://github.com/aidant/lazy-components.git"
   },
